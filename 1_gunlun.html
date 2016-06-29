@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body style="height:3000px;">
+<script type="text/javascript">
+	addWhell(document,function(down){
+		alert(down);
+	});
+	
+	function addWhell(obj,fn){
+		if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+			obj.addEventListener('DOMMouseScroll',fnEvent);
+		}else{
+			obj.addEventListener('mousewheel',fnEvent);
+		}
+		
+		function fnEvent(ev){
+			var down = true;
+			if(ev.wheelDelta){
+				down = ev.wheelDelta > 0 ? true : false;
+			}else{
+				down = ev.detail < 0 ? true : false;
+			}
+			
+			typeof fn === 'function' && fn(down);
+			//alert(down)
+			ev.preventDefault();
+		}
+	}
+</script>
+</body>
+</html>
